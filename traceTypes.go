@@ -62,7 +62,7 @@ const (
 //
 // It returns the corresponding TraceTypes constant if the string matches
 // a known level name, or an error if the input is invalid.
-func (TraceTypes*) TraceTypesParse(value string) (TraceTypes, error) {
+func TraceTypesParse(value string) (TraceTypes, error) {
 	var ret TraceTypes
 	var err error
 	switch strings.ToUpper(value) {
