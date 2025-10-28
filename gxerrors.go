@@ -55,7 +55,7 @@ var ErrArgumentOutOfRange = errors.New("argument out of range")
 // ErrBufferTooSmall means that the there is not enought data in the buffer.
 var ErrBufferTooSmall = errors.New("buffer too small")
 
-// Initialize error messages.
+// init initializes error messages.
 func init() {
 	// --- English (en-US) ---
 	message.SetString(language.AmericanEnglish, "error.unknown_enum", "Unknown enum value.")

@@ -148,5 +148,5 @@ type IGXMedia interface {
 
 	// localize messages for the specified language.
 	// No errors is returned if language is not supported.
-	localize(language language.Tag)
+	Localize(language language.Tag)
 }
