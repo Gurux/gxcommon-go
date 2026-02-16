@@ -146,7 +146,7 @@ type IGXMedia interface {
 	// Eop is used to buffer the data is buffered until EOP is received.
 	GetEop() any
 
-	// localize messages for the specified language.
+	// Localize messages for the specified language.
 	// No errors is returned if language is not supported.
 	Localize(language language.Tag)
 }

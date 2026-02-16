@@ -217,6 +217,9 @@ func readFixed(b []byte, order binary.ByteOrder, out any) error {
 
 // ToBytes method is used to convert different types to byte slice.
 func ToBytes(v any, order binary.ByteOrder) ([]byte, error) {
+	if v == nil {
+		return []byte{}, nil
+	}
 	switch x := v.(type) {
 	case []byte:
 		return x, nil

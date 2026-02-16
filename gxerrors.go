@@ -58,44 +58,129 @@ var ErrBufferTooSmall = errors.New("buffer too small")
 // init initializes error messages.
 func init() {
 	// --- English (en-US) ---
-	message.SetString(language.AmericanEnglish, "error.unknown_enum", "Unknown enum value.")
-	message.SetString(language.AmericanEnglish, "error.connection_closed", "Connection closed.")
-	message.SetString(language.AmericanEnglish, "error.invalid_argument", "Invalid argument.")
-	message.SetString(language.AmericanEnglish, "error.argument_out_of_range", "Argument out of range.")
-	message.SetString(language.AmericanEnglish, "error.buffer_too_small", "Buffer too small.")
-
+	err := message.SetString(language.AmericanEnglish, "error.unknown_enum", "Unknown enum value.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.AmericanEnglish, "error.connection_closed", "Connection closed.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.AmericanEnglish, "error.invalid_argument", "Invalid argument.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.AmericanEnglish, "error.argument_out_of_range", "Argument out of range.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.AmericanEnglish, "error.buffer_too_small", "Buffer too small.")
+	if err != nil {
+		panic(err)
+	}
 	// --- German (de) ---
-	message.SetString(language.German, "error.unknown_enum", "Unbekannter Enum-Wert.")
-	message.SetString(language.German, "error.connection_closed", "Verbindung geschlossen.")
-	message.SetString(language.German, "error.invalid_argument", "Ungültiges Argument.")
-	message.SetString(language.German, "error.argument_out_of_range", "Argument außerhalb des gültigen Bereichs.")
-	message.SetString(language.German, "error.buffer_too_small", "Puffer zu klein.")
-
+	err = message.SetString(language.German, "error.unknown_enum", "Unbekannter Enum-Wert.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.German, "error.connection_closed", "Verbindung geschlossen.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.German, "error.invalid_argument", "Ungültiges Argument.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.German, "error.argument_out_of_range", "Argument außerhalb des gültigen Bereichs.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.German, "error.buffer_too_small", "Puffer zu klein.")
+	if err != nil {
+		panic(err)
+	}
 	// --- Finnish (fi) ---
-	message.SetString(language.Finnish, "error.unknown_enum", "Tuntematon enum-arvo.")
-	message.SetString(language.Finnish, "error.connection_closed", "Yhteys on suljettu.")
-	message.SetString(language.Finnish, "error.invalid_argument", "Virheellinen argumentti.")
-	message.SetString(language.Finnish, "error.argument_out_of_range", "Argumentti on sallitun alueen ulkopuolella.")
-	message.SetString(language.Finnish, "error.buffer_too_small", "Puskuri on liian pieni.")
-
+	err = message.SetString(language.Finnish, "error.unknown_enum", "Tuntematon enum-arvo.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Finnish, "error.connection_closed", "Yhteys on suljettu.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Finnish, "error.invalid_argument", "Virheellinen argumentti.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Finnish, "error.argument_out_of_range", "Argumentti on sallitun alueen ulkopuolella.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Finnish, "error.buffer_too_small", "Puskuri on liian pieni.")
+	if err != nil {
+		panic(err)
+	}
 	// --- Swedish (sv) ---
-	message.SetString(language.Swedish, "error.unknown_enum", "Okänt enum-värde.")
-	message.SetString(language.Swedish, "error.connection_closed", "Anslutningen är stängd.")
-	message.SetString(language.Swedish, "error.invalid_argument", "Ogiltigt argument.")
-	message.SetString(language.Swedish, "error.argument_out_of_range", "Argumentet är utanför giltigt intervall.")
-	message.SetString(language.Swedish, "error.buffer_too_small", "Bufferten är för liten.")
-
+	err = message.SetString(language.Swedish, "error.unknown_enum", "Okänt enum-värde.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Swedish, "error.connection_closed", "Anslutningen är stängd.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Swedish, "error.invalid_argument", "Ogiltigt argument.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Swedish, "error.argument_out_of_range", "Argumentet är utanför giltigt intervall.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Swedish, "error.buffer_too_small", "Bufferten är för liten.")
+	if err != nil {
+		panic(err)
+	}
 	// --- Spanish (es) ---
-	message.SetString(language.Spanish, "error.unknown_enum", "Valor de enumeración desconocido.")
-	message.SetString(language.Spanish, "error.connection_closed", "Conexión cerrada.")
-	message.SetString(language.Spanish, "error.invalid_argument", "Argumento no válido.")
-	message.SetString(language.Spanish, "error.argument_out_of_range", "Argumento fuera de rango.")
-	message.SetString(language.Spanish, "error.buffer_too_small", "El búfer es demasiado pequeño.")
-
+	err = message.SetString(language.Spanish, "error.unknown_enum", "Valor de enumeración desconocido.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Spanish, "error.connection_closed", "Conexión cerrada.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Spanish, "error.invalid_argument", "Argumento no válido.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Spanish, "error.argument_out_of_range", "Argumento fuera de rango.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Spanish, "error.buffer_too_small", "El búfer es demasiado pequeño.")
+	if err != nil {
+		panic(err)
+	}
 	// --- Estonian (et) ---
-	message.SetString(language.Estonian, "error.unknown_enum", "Tundmatu enum-väärtus.")
-	message.SetString(language.Estonian, "error.connection_closed", "Ühendus suletud.")
-	message.SetString(language.Estonian, "error.invalid_argument", "Vigane argument.")
-	message.SetString(language.Estonian, "error.argument_out_of_range", "Argument väljaspool lubatud vahemikku.")
-	message.SetString(language.Estonian, "error.buffer_too_small", "Puhver on liiga väike.")
+	err = message.SetString(language.Estonian, "error.unknown_enum", "Tundmatu enum-väärtus.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Estonian, "error.connection_closed", "Ühendus suletud.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Estonian, "error.invalid_argument", "Vigane argument.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Estonian, "error.argument_out_of_range", "Argument väljaspool lubatud vahemikku.")
+	if err != nil {
+		panic(err)
+	}
+	err = message.SetString(language.Estonian, "error.buffer_too_small", "Puhver on liiga väike.")
+	if err != nil {
+		panic(err)
+	}
 }
