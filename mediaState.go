@@ -61,16 +61,16 @@ const (
 func MediaStateParse(value string) (MediaState, error) {
 	var ret MediaState
 	var err error
-	switch strings.ToUpper(value) {
-	case "CLOSED":
+	switch {
+	case strings.EqualFold(value, "Closed"):
 		ret = MediaStateClosed
-	case "OPEN":
+	case strings.EqualFold(value, "Open"):
 		ret = MediaStateOpen
-	case "OPENING":
+	case strings.EqualFold(value, "Opening"):
 		ret = MediaStateOpening
-	case "CLOSING":
+	case strings.EqualFold(value, "Closing"):
 		ret = MediaStateClosing
-	case "CHANGED":
+	case strings.EqualFold(value, "Changed"):
 		ret = MediaStateChanged
 	default:
 		err = fmt.Errorf("%w: %q", ErrUnknownEnum, value)
@@ -84,15 +84,26 @@ func (g MediaState) String() string {
 	var ret string
 	switch g {
 	case MediaStateClosed:
-		ret = "CLOSED"
+		ret = "Closed"
 	case MediaStateOpen:
-		ret = "OPEN"
+		ret = "Open"
 	case MediaStateOpening:
-		ret = "OPENING"
+		ret = "Opening"
 	case MediaStateClosing:
-		ret = "CLOSING"
+		ret = "Closing"
 	case MediaStateChanged:
-		ret = "CHANGED"
+		ret = "Changed"
 	}
 	return ret
+}
+
+// AllMediaState returns a slice containing all defined media state values.
+func AllMediaState() []MediaState {
+	return []MediaState{
+		MediaStateClosed,
+		MediaStateOpen,
+		MediaStateOpening,
+		MediaStateClosing,
+		MediaStateChanged,
+	}
 }

@@ -98,3 +98,14 @@ func (value TraceLevel) String() string {
 	}
 	return ret
 }
+
+// AllTraceLevel returns a slice containing all defined trace level values.
+func AllTraceLevel() []TraceLevel {
+	return []TraceLevel{
+		TraceLevelOff,
+		TraceLevelError,
+		TraceLevelWarning,
+		TraceLevelInfo,
+		TraceLevelVerbose,
+	}
+}

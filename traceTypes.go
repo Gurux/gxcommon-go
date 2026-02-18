@@ -65,16 +65,16 @@ const (
 func TraceTypesParse(value string) (TraceTypes, error) {
 	var ret TraceTypes
 	var err error
-	switch strings.ToUpper(value) {
-	case "SENT":
+	switch {
+	case strings.EqualFold(value, "Sent"):
 		ret = TraceTypesSent
-	case "RECEIVED":
+	case strings.EqualFold(value, "Received"):
 		ret = TraceTypesReceived
-	case "ERROR":
+	case strings.EqualFold(value, "Error"):
 		ret = TraceTypesError
-	case "WARNING":
+	case strings.EqualFold(value, "Warning"):
 		ret = TraceTypesWarning
-	case "INFO":
+	case strings.EqualFold(value, "Info"):
 		ret = TraceTypesInfo
 	default:
 		err = fmt.Errorf("%w: %q", ErrUnknownEnum, value)
@@ -88,15 +88,26 @@ func (g TraceTypes) String() string {
 	var ret string
 	switch g {
 	case TraceTypesSent:
-		ret = "SENT"
+		ret = "Sent"
 	case TraceTypesReceived:
-		ret = "RECEIVED"
+		ret = "Received"
 	case TraceTypesError:
-		ret = "ERROR"
+		ret = "Error"
 	case TraceTypesWarning:
-		ret = "WARNING"
+		ret = "Warning"
 	case TraceTypesInfo:
-		ret = "INFO"
+		ret = "Info"
 	}
 	return ret
+}
+
+// AllTraceTypes returns a slice containing all defined trace type values.
+func AllTraceTypes() []TraceTypes {
+	return []TraceTypes{
+		TraceTypesSent,
+		TraceTypesReceived,
+		TraceTypesError, 
+		TraceTypesWarning,
+		TraceTypesInfo
+	}
 }
