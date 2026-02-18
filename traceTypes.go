@@ -106,8 +106,8 @@ func AllTraceTypes() []TraceTypes {
 	return []TraceTypes{
 		TraceTypesSent,
 		TraceTypesReceived,
-		TraceTypesError, 
+		TraceTypesError,
 		TraceTypesWarning,
-		TraceTypesInfo
+		TraceTypesInfo,
 	}
 }
