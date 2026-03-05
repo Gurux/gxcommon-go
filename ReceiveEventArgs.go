@@ -51,8 +51,7 @@ type ReceiveEventArgs struct {
 }
 
 // NewReceiveEventArgs creates a ReceiveEventArgs with the given payload and
-// sender information. The fields are stored in unexported form; access them
-// via the corresponding getters (e.g., Data(), SenderInfo()) if exposed.
+// sender information.
 func NewReceiveEventArgs(data []byte, senderInfo string) *ReceiveEventArgs {
 	return &ReceiveEventArgs{data: data, senderInfo: senderInfo}
 }
@@ -62,18 +61,18 @@ func (e *ReceiveEventArgs) Data() []byte {
 	return e.data
 }
 
-// SenderInfo returns metadata about the sender/receiver endpoint.
+// SenderInfo returns metadata about the sender endpoint.
 func (e *ReceiveEventArgs) SenderInfo() string {
 	return e.senderInfo
 }
 
-// String returns the content of the trace event as a string.
+// String returns a tab-separated string with sender info and payload.
 func (e *ReceiveEventArgs) String() string {
 	str, _ := ToString(e.data)
 	return fmt.Sprintf("%s\t%s", e.senderInfo, str)
 }
 
-// ToHex method is used to convert byte slice to hex string.
+// ToHex converts a byte slice to an uppercase, space-separated hex string.
 func ToHex(value []byte) string {
 	if len(value) == 0 {
 		return ""

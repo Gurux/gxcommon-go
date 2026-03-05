@@ -33,17 +33,17 @@ package gxcommon
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 // ---------------------------------------------------------------------------
 
-// MediaStateEventArgs is an argument class for media state changed event.
+// MediaStateEventArgs contains data for a media state change event.
 type MediaStateEventArgs struct {
-	// Status information from media state.
+	// state is the current media state.
 	state MediaState
 
-	// True is returned if media state change succeeded.
+	// accept reports whether the state change is accepted.
 	accept bool
 }
 
 // NewMediaStateEventArgs creates a MediaStateEventArgs with the given state.
-// The event is marked as accepted by default (accept = true).
+// The event is accepted by default.
 func NewMediaStateEventArgs(state MediaState) *MediaStateEventArgs {
 	return &MediaStateEventArgs{accept: true, state: state}
 }
@@ -53,12 +53,12 @@ func (e *MediaStateEventArgs) State() MediaState {
 	return e.state
 }
 
-// Accepted reports whether the event has been accepted/handled.
+// Accepted reports whether the event is accepted.
 func (e *MediaStateEventArgs) Accepted() bool {
 	return e.accept
 }
 
-// SetAccepted marks the event as accepted or not.
+// SetAccepted sets whether the event is accepted.
 func (e *MediaStateEventArgs) SetAccepted(v bool) {
 	e.accept = v
 }

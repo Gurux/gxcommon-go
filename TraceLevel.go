@@ -55,10 +55,9 @@ const (
 	TraceLevelVerbose
 )
 
-// TraceLevelParse converts the given string into a TraceLevel value.
+// TraceLevelParse parses a string value into a TraceLevel.
 //
-// It returns the corresponding TraceLevel constant if the string matches
-// a known level name, or an error if the input is invalid.
+// It returns ErrUnknownEnum if value does not match a supported trace level.
 func TraceLevelParse(value string) (TraceLevel, error) {
 	var ret TraceLevel
 	var err error
@@ -79,7 +78,7 @@ func TraceLevelParse(value string) (TraceLevel, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the trace level.
+// String returns the canonical trace level name.
 // It satisfies fmt.Stringer.
 func (value TraceLevel) String() string {
 	var ret string
@@ -99,7 +98,7 @@ func (value TraceLevel) String() string {
 	return ret
 }
 
-// AllTraceLevel returns a slice containing all defined trace level values.
+// AllTraceLevel returns all defined TraceLevel values.
 func AllTraceLevel() []TraceLevel {
 	return []TraceLevel{
 		TraceLevelOff,

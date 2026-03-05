@@ -77,7 +77,7 @@ func NewTraceEventArgs(traceType TraceTypes, data any, receiver string) *TraceEv
 	}
 }
 
-// String returns the content of the trace event as a string.
+// String returns a tab-separated string with timestamp, trace type, and data.
 func (e *TraceEventArgs) String() string {
 	str, _ := ToString(e.data)
 	return fmt.Sprintf("%s\t%s\t%s", e.timestamp.Format("15:04:05.000"), e.traceType.String(), str)

@@ -40,35 +40,35 @@ import (
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 // ---------------------------------------------------------------------------
 
-// DataType is used to specify the type of data.
+// DataType specifies a supported value type for conversion helpers.
 type DataType int
 
 const (
-	//DataTypeUnknown is unknown.
+	// DataTypeUnknown is an unknown type.
 	DataTypeUnknown DataType = iota
-	//DataTypeString is string.
+	// DataTypeString is string.
 	DataTypeString
-	//DataTypeBytes is byte array.
+	// DataTypeBytes is []byte.
 	DataTypeBytes
-	//DataTypeByte is byte.
-	DataTypeByte
-	//DataTypeRune is rune.
-	DataTypeRune
-	//DataTypeInt16 is int16.
+	// DataTypeUint8 is uint8 (byte).
+	DataTypeUint8
+	// DataTypeInt8 is int8.
+	DataTypeInt8
+	// DataTypeInt16 is int16.
 	DataTypeInt16
-	//DataTypeInt32 is int32.
+	// DataTypeInt32 is int32.
 	DataTypeInt32
-	//DataTypeInt64 is int64.
+	// DataTypeInt64 is int64.
 	DataTypeInt64
-	//DataTypeUint16 is uint16.
+	// DataTypeUint16 is uint16.
 	DataTypeUint16
-	//DataTypeUint32 is uint32.
+	// DataTypeUint32 is uint32.
 	DataTypeUint32
-	//DataTypeUint64 is uint64.
+	// DataTypeUint64 is uint64.
 	DataTypeUint64
 )
 
-// GetType returns DataType based on generic type T.
+// GetType returns the DataType that corresponds to T.
 func GetType[T any]() DataType {
 	var zero T
 	switch any(zero).(type) {
@@ -77,7 +77,7 @@ func GetType[T any]() DataType {
 	case []byte:
 		return DataTypeBytes
 	case uint8:
-		return DataTypeByte
+		return DataTypeUint8
 	case int16:
 		return DataTypeInt16
 	case int32:
@@ -95,7 +95,9 @@ func GetType[T any]() DataType {
 	}
 }
 
-// ToString method is used to convert different types to string.
+// ToString converts a supported value to a string.
+//
+// Byte slices are returned as space-separated uppercase hex.
 func ToString(value any) (string, error) {
 	var str string
 	switch x := value.(type) {
@@ -107,17 +109,17 @@ func ToString(value any) (string, error) {
 	return str, nil
 }
 
-// BytesToAny2 converts a byte slice to a value of specified DataType, interpreting the bytes according to the specified byte order.
+// BytesToAny2 converts b to a value of the given DataType.
 func BytesToAny2(b []byte, t DataType, order binary.ByteOrder) (any, error) {
 	switch t {
 	case DataTypeString:
 		return BytesToAny[string](b, order)
 	case DataTypeBytes:
 		return BytesToAny[[]byte](b, order)
-	case DataTypeByte:
+	case DataTypeUint8:
 		return BytesToAny[uint8](b, order)
-	case DataTypeRune:
-		return BytesToAny[string](b, order)
+	case DataTypeInt8:
+		return BytesToAny[int8](b, order)
 	case DataTypeInt16:
 		return BytesToAny[int16](b, order)
 	case DataTypeInt32:
@@ -135,7 +137,7 @@ func BytesToAny2(b []byte, t DataType, order binary.ByteOrder) (any, error) {
 	}
 }
 
-// BytesToAny converts a byte slice to a value of type T, interpreting the bytes according to the specified byte order.
+// BytesToAny converts b to type T using the given byte order.
 func BytesToAny[T any](b []byte, order binary.ByteOrder) (T, error) {
 	var zero T
 
@@ -196,7 +198,7 @@ func BytesToAny[T any](b []byte, order binary.ByteOrder) (T, error) {
 	return zero, fmt.Errorf("unsupported target type %T", zero)
 }
 
-// readFixed lukee kohteeseen täsmälleen sen koon verran.
+// readFixed is used to read value to the output.
 func readFixed(b []byte, order binary.ByteOrder, out any) error {
 	var need int
 	switch out.(type) {
@@ -215,7 +217,7 @@ func readFixed(b []byte, order binary.ByteOrder, out any) error {
 	return binary.Read(bytes.NewReader(b[:need]), order, out)
 }
 
-// ToBytes method is used to convert different types to byte slice.
+// ToBytes converts a supported value to bytes using the given byte order.
 func ToBytes(v any, order binary.ByteOrder) ([]byte, error) {
 	if v == nil {
 		return []byte{}, nil

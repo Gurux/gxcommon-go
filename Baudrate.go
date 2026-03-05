@@ -40,68 +40,49 @@ import (
 
 // BaudRate represents the communication speed of a serial port
 // in bits per second (bps).
-//
-// It is used to configure the transmission rate between two
-// serial devices. Both ends of the connection must use the same
-// baud rate to communicate correctly.
-//
-// Common baud rates include:
-//
-//	9600    – Legacy devices, modems
-//	19200   – Industrial devices
-//	38400   – Embedded systems
-//	115200  – Most common modern default
-//	230400+ – High-speed serial communication
-//
-// Example:
-//
-//	cfg := GXSerial{
-//	    BaudRate: Baud115200,
-//	}
-//
 // The underlying value of BaudRate is the numeric bits-per-second value.
 type BaudRate int
 
 const (
-	// BaudRate50 defines that the baudrate is 50.
+	// BaudRate50 is 50 bps.
 	BaudRate50 BaudRate = 50
-	// BaudRate75 defines that the baudrate is 75.
+	// BaudRate75 is 75 bps.
 	BaudRate75 BaudRate = 75
-	// BaudRate110 defines that the baudrate is 110.
+	// BaudRate110 is 110 bps.
 	BaudRate110 BaudRate = 110
-	// BaudRate134 defines that the baudrate is 134.
+	// BaudRate134 is 134 bps.
 	BaudRate134 BaudRate = 134
-	// BaudRate150 defines that the baudrate is 150.
+	// BaudRate150 is 150 bps.
 	BaudRate150 BaudRate = 150
-	// BaudRate200 defines that the baudrate is 200.
+	// BaudRate200 is 200 bps.
 	BaudRate200 BaudRate = 200
-	// BaudRate300 defines that the baudrate is 300.
+	// BaudRate300 is 300 bps.
 	BaudRate300 BaudRate = 300
-	// BaudRate600 defines that the baudrate is 600.
+	// BaudRate600 is 600 bps.
 	BaudRate600 BaudRate = 600
-	// BaudRate1200 defines that the baudrate is 1200.
+	// BaudRate1200 is 1200 bps.
 	BaudRate1200 BaudRate = 1200
-	// BaudRate1800 defines that the baudrate is 1800.
+	// BaudRate1800 is 1800 bps.
 	BaudRate1800 BaudRate = 1800
-	// BaudRate2400 defines that the baudrate is 2400.
+	// BaudRate2400 is 2400 bps.
 	BaudRate2400 BaudRate = 2400
-	// BaudRate4800 defines that the baudrate is 4800.
+	// BaudRate4800 is 4800 bps.
 	BaudRate4800 BaudRate = 4800
-	// BaudRate9600 defines that the baudrate is 9600.
+	// BaudRate9600 is 9600 bps.
 	BaudRate9600 BaudRate = 9600
-	// BaudRate19200 defines that the baudrate is 19200.
+	// BaudRate19200 is 19200 bps.
 	BaudRate19200 BaudRate = 19200
-	// BaudRate38400 defines that the baudrate is 38400.
+	// BaudRate38400 is 38400 bps.
 	BaudRate38400 BaudRate = 38400
-	// BaudRate57600 defines that the baudrate is 57600.
+	// BaudRate57600 is 57600 bps.
 	BaudRate57600 BaudRate = 57600
-	// BaudRate115200 defines that the baudrate is 115200.
+	// BaudRate115200 is 115200 bps.
 	BaudRate115200 BaudRate = 115200
-	// BaudRate230400 defines that the baudrate is 230400.
+	// BaudRate230400 is 230400 bps.
 	BaudRate230400 BaudRate = 230400
-	// BaudRate460800 defines that the baudrate is 460800.
+	// BaudRate460800 is 460800 bps.
 	BaudRate460800 BaudRate = 460800
-	// BaudRate921600 defines that the baudrate is 921600.
+	// BaudRate921600 is 921600 bps.
 	BaudRate921600 BaudRate = 921600
 )
 
@@ -159,7 +140,7 @@ func BaudRateParse(value string) (BaudRate, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the baudrate.
+// String returns the decimal baud value.
 // It satisfies fmt.Stringer.
 func (g BaudRate) String() string {
 	var ret string
@@ -208,7 +189,7 @@ func (g BaudRate) String() string {
 	return ret
 }
 
-// AllBaudrate returns a slice containing all defined baudrate values.
+// AllBaudrate returns all defined BaudRate values.
 func AllBaudrate() []BaudRate {
 	return []BaudRate{
 		BaudRate50,

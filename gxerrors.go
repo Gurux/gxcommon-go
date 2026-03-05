@@ -40,7 +40,7 @@ import (
 	"golang.org/x/text/message"
 )
 
-// ErrUnknownEnum Unknown enum value.
+// ErrUnknownEnum indicates an unknown enum value.
 var ErrUnknownEnum = errors.New("unknown enum value")
 
 // ErrConnectionClosed means that the connection is closed.
@@ -52,7 +52,7 @@ var ErrInvalidArgument = errors.New("invalid argument")
 // ErrArgumentOutOfRange means that the argument is out of range.
 var ErrArgumentOutOfRange = errors.New("argument out of range")
 
-// ErrBufferTooSmall means that the there is not enought data in the buffer.
+// ErrBufferTooSmall indicates there is not enough data in the buffer.
 var ErrBufferTooSmall = errors.New("buffer too small")
 
 // init initializes error messages.

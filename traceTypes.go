@@ -38,7 +38,7 @@ import (
 	"strings"
 )
 
-// TraceTypes is a enumerated value that selects which traces are emitted.
+// TraceTypes is an enumerated value that selects which traces are emitted.
 type TraceTypes int
 
 const (
@@ -58,10 +58,9 @@ const (
 	TraceTypesInfo TraceTypes = 0x10
 )
 
-// TraceTypesParse converts the given string into a TraceTypes value.
+// TraceTypesParse parses a string value into a TraceTypes.
 //
-// It returns the corresponding TraceTypes constant if the string matches
-// a known level name, or an error if the input is invalid.
+// It returns ErrUnknownEnum if value does not match a supported trace type.
 func TraceTypesParse(value string) (TraceTypes, error) {
 	var ret TraceTypes
 	var err error
@@ -82,7 +81,7 @@ func TraceTypesParse(value string) (TraceTypes, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the trace type.
+// String returns the canonical trace type name.
 // It satisfies fmt.Stringer.
 func (g TraceTypes) String() string {
 	var ret string
@@ -101,7 +100,7 @@ func (g TraceTypes) String() string {
 	return ret
 }
 
-// AllTraceTypes returns a slice containing all defined trace type values.
+// AllTraceTypes returns all defined TraceTypes values.
 func AllTraceTypes() []TraceTypes {
 	return []TraceTypes{
 		TraceTypesSent,

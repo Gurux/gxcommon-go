@@ -54,10 +54,9 @@ const (
 	MediaStateChanged MediaState = 5
 )
 
-// MediaStateParse converts the given string into a MediaState value.
+// MediaStateParse parses a string value into a MediaState.
 //
-// It returns the corresponding MediaState constant if the string matches
-// a known level name, or an error if the input is invalid.
+// It returns ErrUnknownEnum if value does not match a supported media state.
 func MediaStateParse(value string) (MediaState, error) {
 	var ret MediaState
 	var err error
@@ -78,7 +77,7 @@ func MediaStateParse(value string) (MediaState, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the Media state.
+// String returns the canonical media state name.
 // It satisfies fmt.Stringer.
 func (g MediaState) String() string {
 	var ret string
@@ -97,7 +96,7 @@ func (g MediaState) String() string {
 	return ret
 }
 
-// AllMediaState returns a slice containing all defined media state values.
+// AllMediaState returns all defined MediaState values.
 func AllMediaState() []MediaState {
 	return []MediaState{
 		MediaStateClosed,

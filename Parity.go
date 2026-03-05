@@ -54,10 +54,9 @@ const (
 	ParitySpace
 )
 
-// ParityParse converts the given string into a Parity value.
+// ParityParse parses a string value into a Parity.
 //
-// It returns the corresponding Parity constant if the string matches
-// a known level name, or an error if the input is invalid.
+// It returns ErrUnknownEnum if value does not match a supported parity mode.
 func ParityParse(value string) (Parity, error) {
 	var ret Parity
 	var err error
@@ -78,7 +77,7 @@ func ParityParse(value string) (Parity, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the Parity.
+// String returns the canonical parity name.
 // It satisfies fmt.Stringer.
 func (g Parity) String() string {
 	var ret string
@@ -97,7 +96,7 @@ func (g Parity) String() string {
 	return ret
 }
 
-// AllParity returns a slice containing all defined Parity values.
+// AllParity returns all defined Parity values.
 func AllParity() []Parity {
 	return []Parity{
 		ParityNone,

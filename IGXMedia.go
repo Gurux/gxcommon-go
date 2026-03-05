@@ -36,117 +36,101 @@ import "golang.org/x/text/language"
 // ---------------------------------------------------------------------------
 
 // ReceivedEventHandler is a callback invoked when data is received from a media.
-// The first argument is the source media (IGXMedia). The second argument carries
-// the received payload and related metadata (ReceiveEventArgs). Implementations
-// should return quickly; long-running work should be offloaded to another goroutine.
+// The first argument is the source media and the second carries the payload.
 type ReceivedEventHandler func(IGXMedia, ReceiveEventArgs)
 
-// MediaStateHandler is a callback invoked when the media state changes
-// (for example, connecting, connected, disconnected, error). The first
-// argument is the source media (IGXMedia); the second provides details
-// about the state transition (MediaStateEventArgs). Handlers should
-// return quickly—offload long work to another goroutine.
+// MediaStateHandler is a callback invoked when media state changes.
+// The first argument is the source media and the second contains state details.
 type MediaStateHandler func(IGXMedia, MediaStateEventArgs)
 
 // TraceEventHandler is a callback invoked when a trace event occurs.
-// The first argument is the source media (IGXMedia); the second contains
-// the trace details (TraceEventArgs). Handlers should return quickly—
-// offload any heavy work to a separate goroutine.
+// The first argument is the source media and the second contains trace details.
 type TraceEventHandler func(IGXMedia, TraceEventArgs)
 
 // ErrorEventHandler is a callback invoked when an error occurs in the media.
-// The first argument is the source media (IGXMedia); the second is the error
-// (which may be wrapped). Handlers should return quickly—offload any heavy
-// work to another goroutine.
+// The first argument is the source media and the second is the error.
 type ErrorEventHandler func(IGXMedia, error)
 
-// IGXMedia is a common interface for all Media components.
-// Using this interface GXCommunication library enables communication with
-// different medias.
+// IGXMedia defines a common interface for media components.
 type IGXMedia interface {
 
-	// Sends data asynchronously.
-	// No reply from the receiver, whether or not the operation was successful, is expected.
-	// data: Data to send to the device.
-	// receiver : Media depend information of the receiver (optional).
+	// Send transmits data asynchronously.
+	// receiver contains media-specific receiver information and may be empty.
 	Send(data any, receiver string) error
 
-	// Receive Waits for more reply data After SendSync if whole packet is not received yet.
-	// args: Receive data arguments.</param>
-	// <returns>True, if the send operation was successful.</returns>
+	// Receive waits for reply data according to args.
+	// The returned bool reports whether data was received.
 	Receive(args *ReceiveParameters) (bool, error)
 
-	//SetOnReceived: Media component notifies asynchronously received data through this method.
+	// SetOnReceived sets a callback for asynchronously received data.
 	SetOnReceived(ReceivedEventHandler)
 
-	//SetOnError: Media component notifies the error event of a Gurux component.)
+	// SetOnError sets a callback for media errors.
 	SetOnError(ErrorEventHandler)
 
-	//SetOnMediaStateChange: Media component notifies the state change event of a Gurux media component.
+	// SetOnMediaStateChange sets a callback for media state changes.
 	SetOnMediaStateChange(MediaStateHandler)
 
-	//SetOnTrace: Media component notifies the trace event of a Gurux media component.
+	// SetOnTrace sets a callback for trace events.
 	SetOnTrace(TraceEventHandler)
 
-	// Copy copies the content of the media to target media.
+	// Copy copies the media configuration to target.
 	Copy(target IGXMedia) error
 
-	// Media name is used to identify media connection,
-	// so two different media connection can not return same media name.
+	// GetName returns a unique media connection name.
 	GetName() string
 
-	// The trace level specifies which types of trace messages are emitted.
+	// GetTrace returns the current trace level.
 	GetTrace() TraceLevel
 
-	// The trace level specifies which types of trace messages are emitted.
+	// SetTrace sets the trace level.
 	SetTrace(TraceLevel) error
 
-	//Open ppens the media.
+	// Open opens the media connection.
 	Open() error
 
-	// IsOpen returns true, if the connection is established.
+	// IsOpen reports whether the media connection is open.
 	IsOpen() bool
 
-	//Close terminates the media connection.
+	// Close closes the media connection.
 	Close() error
 
-	// MediaType returns the type of the media.
+	// GetMediaType returns the media type.
 	GetMediaType() string
 
-	// GetSettings gets the media settings.
+	// GetSettings returns media settings in serialized form.
 	GetSettings() string
 
-	// SetSettings sets the media settings.
+	// SetSettings applies serialized media settings.
 	SetSettings(value string) error
 
-	// GetSynchronous makes the connection synchronized and stops sending OnReceived events.
+	// GetSynchronous enters synchronous mode and returns a restore function.
 	GetSynchronous() func()
 
-	// IsSynchronous returns true if the media is synchronous mode.
+	// IsSynchronous reports whether synchronous mode is enabled.
 	IsSynchronous() bool
 
-	// ResetSynchronousBuffer resets synchronous buffer.
+	// ResetSynchronousBuffer clears the synchronous receive buffer.
 	ResetSynchronousBuffer()
 
-	// GetBytesSent return sent byte count.
+	// GetBytesSent returns the sent byte count.
 	GetBytesSent() uint64
 
-	// BytesReceived returns received byte count.
+	// GetBytesReceived returns the received byte count.
 	GetBytesReceived() uint64
 
-	// Resets BytesReceived and BytesSent counters.
+	// ResetByteCounters resets sent and received byte counters.
 	ResetByteCounters()
 
-	// Validate Media settings for connection open.
+	// Validate validates media settings before opening a connection.
 	Validate() error
 
-	// Eop is used to buffer the data is buffered until EOP is received.
+	// SetEop sets the end-of-packet marker for receive buffering.
 	SetEop(any)
 
-	// Eop is used to buffer the data is buffered until EOP is received.
+	// GetEop returns the configured end-of-packet marker.
 	GetEop() any
 
-	// Localize messages for the specified language.
-	// No errors is returned if language is not supported.
+	// Localize localizes messages for the specified language.
 	Localize(language language.Tag)
 }

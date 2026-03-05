@@ -38,15 +38,7 @@ import (
 	"strings"
 )
 
-// StopBits defines the number of stop bits used in serial communication.
-//
-// Stop bits are sent after each data byte to signal the end of a transmission unit.
-// They provide timing for the receiving device to prepare for the next byte.
-//
-// Common configurations:
-//
-//	1 stop bit  – Standard and most commonly used setting (8N1).
-//	2 stop bits – Used in some industrial and legacy systems for improved reliability.
+// StopBits defines the stop-bit configuration used in serial communication.
 type StopBits int
 
 const (
@@ -60,10 +52,9 @@ const (
 	StopBitsOnePointFive
 )
 
-// StopBitsParse converts the given string into a StopBits value.
+// StopBitsParse parses a string value into a StopBits.
 //
-// It returns the corresponding StopBits constant if the string matches
-// a known level name, or an error if the input is invalid.
+// It returns ErrUnknownEnum if value does not match a supported stop-bit mode.
 func StopBitsParse(value string) (StopBits, error) {
 	var ret StopBits
 	var err error
@@ -82,7 +73,7 @@ func StopBitsParse(value string) (StopBits, error) {
 	return ret, err
 }
 
-// String returns the canonical name of the StopBits.
+// String returns the canonical stop-bit name.
 // It satisfies fmt.Stringer.
 func (g StopBits) String() string {
 	var ret string
@@ -99,7 +90,7 @@ func (g StopBits) String() string {
 	return ret
 }
 
-// AllStopBits returns a slice containing all defined StopBits values.
+// AllStopBits returns all defined StopBits values.
 func AllStopBits() []StopBits {
 	return []StopBits{
 		StopBitsNone,

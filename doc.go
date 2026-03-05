@@ -1,5 +1,7 @@
-// Package gxcommon provides shared types and helpers for the Gurux DLMS media components.
-// It defines IGXMedia and related event types used different medias.
+// Package gxcommon provides shared types and helpers for Gurux media components.
+//
+// It defines the IGXMedia interface, related event argument types, common
+// serial configuration enums, and data conversion utilities.
 package gxcommon
 
 // --------------------------------------------------------------------------

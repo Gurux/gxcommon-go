@@ -33,49 +33,39 @@ package gxcommon
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 // ---------------------------------------------------------------------------
 
-// ReceiveParameters class is used when data is read synchronously.
+// ReceiveParameters defines options for synchronous receive operations.
 type ReceiveParameters struct {
-	// If true, returns the bytes from the buffer without removing.
+	// Peek returns bytes from the buffer without consuming them.
 	Peek bool
 
-	// EOP: The end of packet (EOP) waited for.
-	// The EOP can, for example be a single byte ('0xA1'),
-	// a string ("OK") or an array of bytes.
+	// EOP is the end-of-packet marker to wait for.
+	// It can be, for example, a single byte, a string, or a byte slice.
 	EOP any
 
-	// Count: The number of reply data bytes to be read.
-	// Count can be between 0 and n bytes.
+	// Count is the number of bytes to read.
 	Count int
 
-	// WaitTime: Maximum time, in milliseconds, to wait for reply data.
-	// WaitTime -1 (Default value) indicates infinite wait time.
+	// WaitTime is the maximum wait time in milliseconds.
+	// A value of -1 means infinite wait.
 	WaitTime int
 
-	// AllData: If True, all the reply data is moved to Reply.
+	// AllData moves all available reply data to Reply when true.
 	AllData bool
 
-	// Reply: Received reply data.
+	// Reply contains received reply data.
 	Reply any
 
-	// ReplyType: The type of the reply data.
-	// Supported types are: string, []byte, byte (uint8), rune (char),
-	// int16, int32, int64, uint16, uint32, uint64.
-	// Default value is TypeUnknown. If TypeUnknown, the type is determined
-	// from the Reply field.
+	// ReplyType is the expected reply data type.
+	// Supported types are string, []byte, uint8, rune, int16, int32, int64,
+	// uint16, uint32, and uint64. If ReplyType is DataTypeUnknown, the type
+	// is inferred from Reply.
 	ReplyType DataType
 }
 
-// NewReceiveParameters returns a new ReceiveParameters[T] initialized with
-// sensible defaults for synchronous reads. By default Peek is false (data is
-// consumed when read) and WaitTime is -1, which indicates an infinite wait.
+// NewReceiveParameters returns a new ReceiveParameters initialized with
+// defaults for synchronous reads.
 //
-// The caller can override fields after construction as needed.
-//
-// Example:
-//
-//	rp := NewReceiveParameters[[]byte]()
-//	rp.Peek = true        // inspect without consuming
-//	rp.WaitTime = 5000    // 5s timeout
+// Default values are Peek=false and WaitTime=-1 (infinite wait).
 func NewReceiveParameters[T any]() *ReceiveParameters {
 	ret := &ReceiveParameters{
 		Peek:     false,
