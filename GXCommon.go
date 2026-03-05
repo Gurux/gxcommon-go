@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"sync"
 	"sync/atomic"
 
 	"golang.org/x/text/language"
@@ -72,6 +73,10 @@ const (
 )
 
 var currentLang atomic.Value
+var (
+	mu   sync.RWMutex
+	subs = map[chan language.Tag]struct{}{}
+)
 
 // GetType returns the DataType that corresponds to T.
 func GetType[T any]() DataType {
@@ -269,7 +274,13 @@ func writeFixed[T any](order binary.ByteOrder, x T) ([]byte, error) {
 // translation for the selected language is not available, message lookups use
 // the default catalog fallback behavior.
 func SetLanguage(lang language.Tag) {
+	prev := Language()
+	if prev == lang {
+		return
+	}
+
 	currentLang.Store(lang)
+	notify(lang)
 }
 
 // Language returns the currently configured package-wide language.
@@ -282,4 +293,45 @@ func Language() language.Tag {
 		return language.AmericanEnglish
 	}
 	return v.(language.Tag)
+}
+
+// Subscribe registers a listener for package-wide language changes.
+//
+// The returned buffered channel immediately receives the current language and
+// then receives future values when SetLanguage changes the language.
+func Subscribe() chan language.Tag {
+	ch := make(chan language.Tag, 1)
+	mu.Lock()
+	subs[ch] = struct{}{}
+	mu.Unlock()
+	ch <- Language()
+	return ch
+}
+
+// Unsubscribe removes a language listener created by Subscribe and closes it.
+//
+// Calling Unsubscribe for a channel that is not subscribed is a no-op.
+func Unsubscribe(ch chan language.Tag) {
+	mu.Lock()
+	if _, ok := subs[ch]; ok {
+		delete(subs, ch)
+		close(ch)
+	}
+	mu.Unlock()
+}
+
+// notify notifies subscribes when language is changed.
+func notify(lang language.Tag) {
+	mu.RLock()
+	list := make([]chan language.Tag, 0, len(subs))
+	for ch := range subs {
+		list = append(list, ch)
+	}
+	mu.RUnlock()
+	for _, ch := range list {
+		select {
+		case ch <- lang:
+		default:
+		}
+	}
 }
