@@ -1,7 +1,5 @@
 package gxcommon
 
-import "golang.org/x/text/language"
-
 // --------------------------------------------------------------------------
 //
 //	Gurux Ltd
@@ -130,7 +128,4 @@ type IGXMedia interface {
 
 	// GetEop returns the configured end-of-packet marker.
 	GetEop() any
-
-	// Localize localizes messages for the specified language.
-	Localize(language language.Tag)
 }
