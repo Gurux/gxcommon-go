@@ -5,6 +5,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"sync/atomic"
+
+	"golang.org/x/text/language"
 )
 
 // --------------------------------------------------------------------------
@@ -67,6 +70,8 @@ const (
 	// DataTypeUint64 is uint64.
 	DataTypeUint64
 )
+
+var currentLang atomic.Value
 
 // GetType returns the DataType that corresponds to T.
 func GetType[T any]() DataType {
@@ -255,4 +260,26 @@ func writeFixed[T any](order binary.ByteOrder, x T) ([]byte, error) {
 		return nil, err
 	}
 	return buf.Bytes(), nil
+}
+
+// SetLanguage sets the package-wide language used by internal status and error
+// messages.
+//
+// The value is stored atomically and is safe to update concurrently. If a
+// translation for the selected language is not available, message lookups use
+// the default catalog fallback behavior.
+func SetLanguage(lang language.Tag) {
+	currentLang.Store(lang)
+}
+
+// Language returns the currently configured package-wide language.
+//
+// If no language has been configured with SetLanguage, Language returns
+// language.AmericanEnglish.
+func Language() language.Tag {
+	v := currentLang.Load()
+	if v == nil {
+		return language.AmericanEnglish
+	}
+	return v.(language.Tag)
 }
