@@ -45,30 +45,32 @@ import (
 // ---------------------------------------------------------------------------
 
 // DataType specifies a supported value type for conversion helpers.
+// It is used by the generic conversion utilities to indicate the kind of
+// data being handled.
 type DataType int
 
 const (
 	// DataTypeUnknown is an unknown type.
 	DataTypeUnknown DataType = iota
-	// DataTypeString is string.
+	// DataTypeString represents string values.
 	DataTypeString
-	// DataTypeBytes is []byte.
+	// DataTypeBytes represents a byte slice ([]byte).
 	DataTypeBytes
-	// DataTypeUint8 is uint8 (byte).
+	// DataTypeUint8 represents uint8 (byte).
 	DataTypeUint8
-	// DataTypeInt8 is int8.
+	// DataTypeInt8 represents int8.
 	DataTypeInt8
-	// DataTypeInt16 is int16.
+	// DataTypeInt16 represents int16.
 	DataTypeInt16
-	// DataTypeInt32 is int32.
+	// DataTypeInt32 represents int32.
 	DataTypeInt32
-	// DataTypeInt64 is int64.
+	// DataTypeInt64 represents int64.
 	DataTypeInt64
-	// DataTypeUint16 is uint16.
+	// DataTypeUint16 represents uint16.
 	DataTypeUint16
-	// DataTypeUint32 is uint32.
+	// DataTypeUint32 represents uint32.
 	DataTypeUint32
-	// DataTypeUint64 is uint64.
+	// DataTypeUint64 represents uint64.
 	DataTypeUint64
 )
 
@@ -77,6 +79,56 @@ var (
 	mu   sync.RWMutex
 	subs = map[chan language.Tag]struct{}{}
 )
+
+// String provides a human-readable name for the DataType.
+// It satisfies fmt.Stringer and is primarily used in logging/examples.
+func (dt DataType) String() string {
+	switch dt {
+	case DataTypeUnknown:
+		return "Unknown"
+	case DataTypeString:
+		return "String"
+	case DataTypeBytes:
+		return "Bytes"
+	case DataTypeUint8:
+		return "Uint8"
+	case DataTypeInt8:
+		return "Int8"
+	case DataTypeInt16:
+		return "Int16"
+	case DataTypeInt32:
+		return "Int32"
+	case DataTypeInt64:
+		return "Int64"
+	case DataTypeUint16:
+		return "Uint16"
+	case DataTypeUint32:
+		return "Uint32"
+	case DataTypeUint64:
+		return "Uint64"
+	default:
+		return "Unknown"
+	}
+}
+
+// GetType returns the DataType that corresponds to T.
+// AllDataTypes returns the list of all defined DataType values.
+// It is mainly useful for validation and documentation purposes.
+func AllDataTypes() []DataType {
+	return []DataType{
+		DataTypeUnknown,
+		DataTypeString,
+		DataTypeBytes,
+		DataTypeUint8,
+		DataTypeInt8,
+		DataTypeInt16,
+		DataTypeInt32,
+		DataTypeInt64,
+		DataTypeUint16,
+		DataTypeUint32,
+		DataTypeUint64,
+	}
+}
 
 // GetType returns the DataType that corresponds to T.
 func GetType[T any]() DataType {

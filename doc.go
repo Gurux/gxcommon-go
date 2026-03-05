@@ -1,7 +1,20 @@
-// Package gxcommon provides shared types and helpers for Gurux media components.
+// Package gxcommon provides reusable helpers, configuration types, and
+// interfaces that underpin the Gurux media libraries.
 //
-// It defines the IGXMedia interface, related event argument types, common
-// serial configuration enums, and data conversion utilities.
+// The package is intentionally lightweight and exposes:
+//
+//   * the IGXMedia interface and associated event argument types used by all
+//     media implementations (serial, TCP, USB, etc.)
+//   * common serial‑port enums (BaudRate, Parity, StopBits) with parsing and
+//     String helpers
+//   * tracing and state enums (TraceLevel, TraceTypes, MediaState) plus
+//     utilities for working with them
+//   * data conversion helpers (ToBytes, ToString, GetType) and a small set of
+//     errors used throughout the framework
+//   * simple language subscription helpers used for localized messages
+//
+// The package is documented with examples so that `go doc` or `pkg.go.dev` can
+// show concrete usage.  See `gxcommon_examples_test.go` for sample code.
 package gxcommon
 
 // --------------------------------------------------------------------------
