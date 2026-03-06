@@ -41,6 +41,7 @@ import (
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 // ---------------------------------------------------------------------------
 
+// CurrentLanguage returns the user's preferred UI language.
 func CurrentLanguage() language.Tag {
 	lang := os.Getenv("LC_ALL")
 	if lang == "" {

@@ -40,6 +40,7 @@ import (
 	"golang.org/x/text/language"
 )
 
+// CurrentLanguage returns the user's preferred UI language.
 func CurrentLanguage() language.Tag {
 	langs, err := windows.GetUserPreferredUILanguages(windows.MUI_LANGUAGE_NAME)
 	if err == nil {
