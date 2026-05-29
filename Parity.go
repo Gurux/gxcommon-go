@@ -38,7 +38,9 @@ import (
 	"strings"
 )
 
-// Parity represents the parity bit configuration for serial communication.
+// Parity defines parity checking modes for serial communication.
+//
+// The zero value is ParityNone.
 type Parity int
 
 const (
@@ -54,9 +56,12 @@ const (
 	ParitySpace
 )
 
-// ParityParse parses a string value into a Parity.
+// ParityParse converts a parity name to Parity.
 //
-// It returns ErrUnknownEnum if value does not match a supported parity mode.
+// Accepted values are "None", "Odd", "Even", "Mark", and "Space"
+// (case-insensitive).
+//
+// It returns ErrUnknownEnum if value does not match a supported mode.
 func ParityParse(value string) (Parity, error) {
 	var ret Parity
 	var err error
@@ -78,7 +83,9 @@ func ParityParse(value string) (Parity, error) {
 }
 
 // String returns the canonical parity name.
-// It satisfies fmt.Stringer.
+//
+// It returns an empty string if g is not a defined Parity value.
+// String satisfies fmt.Stringer.
 func (g Parity) String() string {
 	var ret string
 	switch g {
@@ -96,7 +103,7 @@ func (g Parity) String() string {
 	return ret
 }
 
-// AllParity returns all defined Parity values.
+// AllParity returns all defined Parity values in declaration order.
 func AllParity() []Parity {
 	return []Parity{
 		ParityNone,

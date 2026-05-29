@@ -35,6 +35,7 @@ package gxcommon
 
 import (
 	"errors"
+	"fmt"
 
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
@@ -54,6 +55,26 @@ var ErrArgumentOutOfRange = errors.New("argument out of range")
 
 // ErrBufferTooSmall indicates there is not enough data in the buffer.
 var ErrBufferTooSmall = errors.New("buffer too small")
+
+// ErrUnknownEnumError creates an error indicating that the argument is invalid.
+func ErrUnknownEnumError(name string) error {
+	return fmt.Errorf("%w: %s", ErrUnknownEnum, name)
+}
+
+// ErrInvalidArgumentError creates an error indicating that the argument is invalid.
+func ErrInvalidArgumentError(name string) error {
+	return fmt.Errorf("%w: %s", ErrInvalidArgument, name)
+}
+
+// ErrArgumentOutOfRangeError creates an error indicating that the argument is out of range.
+func ErrArgumentOutOfRangeError(name string) error {
+	return fmt.Errorf("%w: %s", ErrArgumentOutOfRange, name)
+}
+
+// ErrBufferTooSmallError creates an error indicating that the buffer is too small.
+func ErrBufferTooSmallError(name string) error {
+	return fmt.Errorf("%w: %s", ErrBufferTooSmall, name)
+}
 
 // init initializes error messages.
 func init() {

@@ -111,7 +111,6 @@ func (dt DataType) String() string {
 	}
 }
 
-// GetType returns the DataType that corresponds to T.
 // AllDataTypes returns the list of all defined DataType values.
 // It is mainly useful for validation and documentation purposes.
 func AllDataTypes() []DataType {

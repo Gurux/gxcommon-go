@@ -38,7 +38,9 @@ import (
 	"strings"
 )
 
-// StopBits defines the stop-bit configuration used in serial communication.
+// StopBits defines stop-bit modes for serial communication.
+//
+// The zero value is StopBitsNone.
 type StopBits int
 
 const (
@@ -52,9 +54,12 @@ const (
 	StopBitsOnePointFive
 )
 
-// StopBitsParse parses a string value into a StopBits.
+// StopBitsParse converts a stop-bit name to StopBits.
 //
-// It returns ErrUnknownEnum if value does not match a supported stop-bit mode.
+// Accepted values are "None", "One", "Two", and "OnePointFive"
+// (case-insensitive).
+//
+// It returns ErrUnknownEnum if value does not match a supported mode.
 func StopBitsParse(value string) (StopBits, error) {
 	var ret StopBits
 	var err error
@@ -74,7 +79,9 @@ func StopBitsParse(value string) (StopBits, error) {
 }
 
 // String returns the canonical stop-bit name.
-// It satisfies fmt.Stringer.
+//
+// It returns an empty string if g is not a defined StopBits value.
+// String satisfies fmt.Stringer.
 func (g StopBits) String() string {
 	var ret string
 	switch g {
@@ -90,7 +97,7 @@ func (g StopBits) String() string {
 	return ret
 }
 
-// AllStopBits returns all defined StopBits values.
+// AllStopBits returns all defined StopBits values in declaration order.
 func AllStopBits() []StopBits {
 	return []StopBits{
 		StopBitsNone,
